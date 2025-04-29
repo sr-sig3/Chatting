@@ -1,11 +1,15 @@
 from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
-from app.routes import auth
+from app.routes import auth, friends
+from app.routes import chat as chat_routes
 from app.database import engine
-from app.models import user
+from app.models import user, friendship
+from app.models import chat as chat_models
 
 # 데이터베이스 테이블 생성
 user.Base.metadata.create_all(bind=engine)
+friendship.Base.metadata.create_all(bind=engine)
+chat_models.Base.metadata.create_all(bind=engine)
 
 app = FastAPI(
     title="채팅 애플리케이션 API",
@@ -24,6 +28,8 @@ app.add_middleware(
 
 # 라우터 등록
 app.include_router(auth.router, prefix="/auth", tags=["auth"])
+app.include_router(friends.router, prefix="/friends", tags=["friends"])
+app.include_router(chat_routes.router, prefix="/chat", tags=["chat"])
 
 @app.get("/")
 async def root():
