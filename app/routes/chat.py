@@ -13,4 +13,4 @@ router.include_router(chat_participants.router, tags=["chat-participants"])
 router.include_router(chat_messages.router, tags=["chat-messages"])
 
 # WebSocket 라우터
-router.include_router(chat_websocket.router, tags=["chat-websocket"]) 
+router.include_router(chat_websocket.router, tags=["chat-websocket"])
