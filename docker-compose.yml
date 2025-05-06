@@ -1,0 +1,9 @@
+services:
+  backend:
+    build: .
+    container_name: chatting-backend
+    env_file:
+      - .env
+    ports:
+      - "8002:8002"
+    restart: unless-stopped 
