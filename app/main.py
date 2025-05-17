@@ -1,6 +1,6 @@
 from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
-from app.routes import auth, friends
+from app.routes import auth, friends, util
 from app.routes import chat as chat_routes
 from app.database import engine
 from app.models import user, friendship
@@ -30,6 +30,7 @@ app.add_middleware(
 app.include_router(auth.router, prefix="/auth", tags=["auth"])
 app.include_router(friends.router, prefix="/friends", tags=["friends"])
 app.include_router(chat_routes.router, prefix="/chat", tags=["chat"])
+app.include_router(util.router, prefix="/util", tags=["util"])
 
 
 @app.get("/")
