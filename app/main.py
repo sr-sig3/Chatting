@@ -5,6 +5,7 @@ from app.routes import chat as chat_routes
 from app.database import engine
 from app.models import user, friendship
 from app.models import chat as chat_models
+from prometheus_fastapi_instrumentator import Instrumentator
 
 # 데이터베이스 테이블 생성
 user.Base.metadata.create_all(bind=engine)
@@ -16,6 +17,8 @@ app = FastAPI(
     description="FastAPI를 사용한 채팅 애플리케이션 백엔드",
     version="1.0.0",
 )
+# Prometheus 메트릭 수집기 등록
+instrumentator = Instrumentator().instrument(app).expose(app)
 
 # CORS 설정
 app.add_middleware(
