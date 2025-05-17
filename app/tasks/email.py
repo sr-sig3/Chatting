@@ -2,6 +2,8 @@ import asyncio
 import random
 from app.celery_worker import celery_app
 
+import time
+
 
 @celery_app.task(bind=True, max_retries=5)
 def send_email(self, user_id: int):
@@ -15,7 +17,7 @@ def send_email(self, user_id: int):
             raise Exception("이메일 전송 실패")
 
         # 이메일 전송 시뮬레이션 (3초 대기)
-        asyncio.run(asyncio.sleep(3))
+        time.sleep(3)
 
         print(f"이메일 전송 성공: {user_id}@test.com")
         return {"status": "success", "email": f"{user_id}@test.com"}
